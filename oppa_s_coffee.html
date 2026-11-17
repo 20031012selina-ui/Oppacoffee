@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oppa's coffee｜台中西屯寵物友善咖啡廳</title>
+  <!-- 載入圓潤可愛的粗圓體與英文字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <!-- 載入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Zen Maru Gothic"', '"Fredoka"', 'sans-serif'],
+            display: ['"Fredoka"', '"Zen Maru Gothic"', 'sans-serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FFFDF7',
+              100: '#FDF8E4',
+              200: '#FBEFC4',
+              300: '#F7E094',
+              400: '#F2CC60',
+              500: '#E5B53B',
+            },
+            cocoa: {
+              50: '#F7F3EF',
+              100: '#EAE0D5',
+              300: '#C5AC96',
+              500: '#8C6A50',
+              700: '#5C4332',
+              900: '#3B281E',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 柔和奶油黃波點背景 */
+    .polka-bg {
+      background-color: #FDF8E4;
+      background-image:
+        radial-gradient(#F4DF96 22%, transparent 23%),
+        radial-gradient(#F8E8B0 22%, transparent 23%);
+      background-size: 56px 56px;
+      background-position: 0 0, 28px 28px;
+    }
+
+    /* 局部卡片細波點裝飾 */
+    .polka-card-soft {
+      background-color: #FFFDF7;
+      background-image: radial-gradient(#F7E4A3 16%, transparent 17%);
+      background-size: 28px 28px;
+    }
+
+    /* 果凍彈跳按鈕動畫 */
+    .btn-jelly {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn-jelly:hover {
+      transform: translateY(-4px) scale(1.04);
+    }
+    .btn-jelly:active {
+      transform: translateY(1px) scale(0.96);
+    }
+
+    /* 店長吃飼料彈跳動畫 */
+    @keyframes oppaNom {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      25% { transform: translateY(-8px) rotate(-4deg) scale(1.05); }
+      50% { transform: translateY(0) rotate(4deg) scale(0.98); }
+      75% { transform: translateY(-6px) rotate(-2deg) scale(1.04); }
+    }
+    .animate-nom {
+      animation: oppaNom 0.45s ease-in-out infinite;
+    }
+
+    /* 飼料掉落動畫 */
+    @keyframes kibbleDrop {
+      0% { opacity: 0; transform: translateY(-22px) scale(0.6); }
+      70% { opacity: 1; transform: translateY(2px) scale(1.08); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .kibble-drop {
+      animation: kibbleDrop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* 搖尾巴動畫 */
+    @keyframes wagTail {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(16deg); }
+      75% { transform: rotate(-12deg); }
+    }
+    .wag-tail {
+      animation: wagTail 0.35s ease-in-out 3;
+    }
+  </style>
+</head>
+<body class="polka-bg text-cocoa-900 font-sans antialiased selection:bg-cream-300 selection:text-cocoa-900">
+
+  <!-- 頂部導覽列 -->
+  <header class="sticky top-0 z-40 px-4 pt-3">
+    <nav class="max-w-6xl mx-auto bg-cream-50/95 backdrop-blur-md border-2 border-cream-300 rounded-full px-5 py-2.5 shadow-[0_6px_0_#F2D883] flex items-center justify-between">
+      <!-- 品牌 Logo -->
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 rounded-full bg-cream-200 border-2 border-cocoa-900 flex items-center justify-center shadow-sm group-hover:rotate-12 transition-transform">
+          <!-- 迷你黑貴賓頭像 -->
+          <svg class="w-7 h-7" viewBox="0 0 100 90" fill="none">
+            <path d="M50 12 C58 12 65 16 69 22 C77 22 84 28 86 36 C91 41 91 50 86 56 C87 64 81 71 73 71 C67 71 62 67 59 62 C54 67 46 67 41 62 C38 67 33 71 27 71 C19 71 13 64 14 56 C9 50 9 41 14 36 C16 28 23 22 31 22 C35 16 42 12 50 12 Z" fill="#3B3B3B" stroke="#141414" stroke-width="4"/>
+            <circle cx="38" cy="43" r="4" fill="#0F0F0F"/>
+            <circle cx="62" cy="43" r="4" fill="#0F0F0F"/>
+            <ellipse cx="50" cy="51" rx="6" ry="4.5" fill="#0F0F0F"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-display font-bold text-xl tracking-tight text-cocoa-900 block leading-none">Oppa's coffee</span>
+          <span class="text-[11px] font-bold text-cocoa-500 tracking-wider">TAICHUNG XITUN</span>
+        </div>
+      </a>
+
+      <!-- 桌機選單 -->
+      <div class="hidden md:flex items-center gap-6 font-bold text-sm text-cocoa-700">
+        <a href="#story" class="hover:text-cocoa-900 hover:bg-cream-200 px-3 py-1.5 rounded-full transition-colors">品牌故事</a>
+        <a href="#menu" class="hover:text-cocoa-900 hover:bg-cream-200 px-3 py-1.5 rounded-full transition-colors">主打菜單</a>
+        <a href="#space" class="hover:text-cocoa-900 hover:bg-cream-200 px-3 py-1.5 rounded-full transition-colors">空間與草地</a>
+        <a href="#pet-rules" class="hover:text-cocoa-900 hover:bg-cream-200 px-3 py-1.5 rounded-full transition-colors">寵物友善公約</a>
+        <a href="#visit" class="bg-cream-400 hover:bg-cream-500 text-cocoa-900 px-4 py-1.5 rounded-full border-2 border-cocoa-900 shadow-[0_3px_0_#3B281E] transition-all">立即預約</a>
+      </div>
+
+      <!-- 手機選單按鈕 -->
+      <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-full bg-cream-200 border-2 border-cocoa-900 text-cocoa-900" aria-label="開啟選單">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- 手機版下拉選單 -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto mt-2 bg-cream-50 border-2 border-cream-300 rounded-3xl p-4 shadow-lg">
+      <div class="flex flex-col gap-2 font-bold text-center">
+        <a href="#story" onclick="toggleMobileMenu()" class="py-2 rounded-2xl hover:bg-cream-200">品牌故事</a>
+        <a href="#menu" onclick="toggleMobileMenu()" class="py-2 rounded-2xl hover:bg-cream-200">主打菜單</a>
+        <a href="#space" onclick="toggleMobileMenu()" class="py-2 rounded-2xl hover:bg-cream-200">空間與草地</a>
+        <a href="#pet-rules" onclick="toggleMobileMenu()" class="py-2 rounded-2xl hover:bg-cream-200">寵物友善公約</a>
+        <a href="#visit" onclick="toggleMobileMenu()" class="py-2.5 rounded-2xl bg-cream-400 border-2 border-cocoa-900 mt-1">台中西屯店鋪資訊</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 第一頁：首頁主視覺 (Hero Section) -->
+  <main id="top" class="max-w-6xl mx-auto px-4 pt-8 pb-16 md:pt-12 md:pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+      <!-- 左側：品牌標題、圓潤粗字體與特殊造型互動按鈕 -->
+      <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+        <div class="inline-flex items-center gap-2 bg-cream-50 border-2 border-cream-400 px-4 py-1.5 rounded-full shadow-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="text-xs sm:text-sm font-black text-cocoa-700 tracking-wide">台中西屯 · 溫暖精緻寵物友善咖啡廳</span>
+        </div>
+
+        <h1 class="font-black text-4xl sm:text-5xl lg:text-6xl text-cocoa-900 leading-[1.18] tracking-tight">
+          陽光草地與精品咖啡，<br>
+          <span class="inline-block bg-cream-300/80 px-3 py-1 rounded-2xl border-b-4 border-cream-500 mt-1">黑貴賓歐爸</span>陪你的日常
+        </h1>
+
+        <p class="text-base sm:text-lg font-bold text-cocoa-700 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          在柔和奶油黃的波點空間裡，點一杯醇厚「歐爸黑咖啡」與手作小蛋糕，讓毛孩在專屬戶外草地盡情奔跑，享受人寵共好的療癒慢時光。
+        </p>
+
+        <!-- 特殊造型互動按鈕區（左：使用者提供的黑貴賓大頭按鈕；右：文字完美置中的草莓奶油小蛋糕按鈕） -->
+        <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-8">
+
+          <!-- 1. 摸摸歐爸按鈕（還原使用者提供的第一張黑貴賓大頭插畫） -->
+          <button onclick="petOppa()" class="btn-jelly group relative flex flex-col items-center justify-center focus:outline-none" title="點我摸摸歐爸！">
+            <div class="relative w-32 h-28 flex items-center justify-center">
+              <svg class="w-full h-full drop-shadow-[0_6px_0_#E2C15A] transition-transform group-hover:scale-105" viewBox="0 0 220 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 外圍蓬鬆黑貴賓大頭與垂耳（1:1 還原提供圖片 1 輪廓） -->
+                <path d="M110 24
+                         C122 24 132 29 138 36
+                         C148 37 156 44 160 53
+                         C172 52 184 58 189 69
+                         C198 75 203 87 199 98
+                         C206 108 205 122 197 131
+                         C200 142 193 154 181 157
+                         C171 160 161 155 156 146
+                         C149 156 136 164 121 166
+                         C114 168 106 168 99 166
+                         C84 164 71 156 64 146
+                         C59 155 49 160 39 157
+                         C27 154 20 142 23 131
+                         C15 122 14 108 21 98
+                         C17 87 22 75 31 69
+                         C36 58 48 52 60 53
+                         C64 44 72 37 82 36
+                         C88 29 98 24 110 24 Z"
+                      fill="#3B3B3B" stroke="#141414" stroke-width="5.5" stroke-linejoin="round"/>
+                <!-- 臉部內側標誌性捲毛線條 -->
+                <path d="M64 78 C60 85 62 93 67 98" stroke="#222222" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M62 103 C57 110 58 119 64 125" stroke="#222222" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M156 78 C160 85 158 93 153 98" stroke="#222222" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M158 103 C163 110 162 119 156 125" stroke="#222222" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- 圓圓黑眼睛與高光 -->
+                <circle cx="84" cy="100" r="8.5" fill="#0F0F0F"/>
+                <circle cx="81.5" cy="97.5" r="2.5" fill="#FFFFFF"/>
+                <circle cx="136" cy="100" r="8.5" fill="#0F0F0F"/>
+                <circle cx="133.5" cy="97.5" r="2.5" fill="#FFFFFF"/>
+                <!-- 可愛圓潤黑鼻子 -->
+                <ellipse cx="110" cy="117" rx="13" ry="9.5" fill="#0F0F0F"/>
+                <!-- 微笑嘴巴 -->
+                <path d="M110 126.5 V134 M110 134 C103 141 91 140 87 133 M110 134 C117 141 129 140 133 133" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="mt-1 bg-cocoa-900 text-cream-50 px-5 py-1.5 rounded-full text-sm font-black shadow-sm group-hover:bg-cocoa-700 transition-colors">
+              摸摸歐爸 🤎
+            </span>
+          </button>
+
+          <!-- 2. 小蛋糕造型互動按鈕（寬敞蛋糕底層設計，文字完美置中不被線條遮擋） -->
+          <a href="#menu" class="btn-jelly group relative flex flex-col items-center justify-center focus:outline-none" title="查看招牌小蛋糕與咖啡菜單">
+            <div class="relative w-44 h-28 flex items-center justify-center">
+              <svg class="w-full h-full drop-shadow-[0_6px_0_#E2C15A]" viewBox="0 0 240 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 頂部小草莓與綠葉 -->
+                <path d="M120 10 C112 10 107 17 109 25 C111 32 117 37 120 39 C123 37 129 32 131 25 C133 17 128 10 120 10 Z" fill="#F26B6B" stroke="#3B281E" stroke-width="4"/>
+                <path d="M111 14 L120 19 L129 14" stroke="#7CB36B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- 奶油頂層波浪 -->
+                <path d="M36 62 C36 44 62 36 120 36 C178 36 204 44 204 62 L204 76 C192 84 180 72 168 78 C156 84 144 72 132 78 C120 84 108 72 96 78 C84 84 72 72 60 78 C48 84 36 76 36 62 Z" fill="#FFFDF7" stroke="#3B281E" stroke-width="4.5" stroke-linejoin="round"/>
+                <!-- 蛋糕主體（留出乾淨寬敞的中央區域放置文字） -->
+                <rect x="34" y="66" width="172" height="84" rx="22" fill="#F8D568" stroke="#3B281E" stroke-width="4.5"/>
+                <!-- 蛋糕底部裝飾波點（避開中央文字區） -->
+                <circle cx="54" cy="132" r="4" fill="#E5B53B"/>
+                <circle cx="186" cy="132" r="4" fill="#E5B53B"/>
+                <circle cx="52" cy="96" r="3.5" fill="#FFFDF7"/>
+                <circle cx="188" cy="96" r="3.5" fill="#FFFDF7"/>
+              </svg>
+              <!-- 完美置中的按鈕文字 -->
+              <span class="absolute inset-0 flex items-center justify-center pt-5 font-black text-base text-cocoa-900 tracking-wide pointer-events-none">
+                看招牌甜點 🍰
+              </span>
+            </div>
+            <span class="mt-1 bg-cream-50 border-2 border-cocoa-900 text-cocoa-900 px-4 py-1 rounded-full text-xs font-black shadow-sm group-hover:bg-cream-200 transition-colors">
+              精選五道人氣餐點
+            </span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- 右側：「歐爸店長」互動卡片（含全身黑貴賓 + 狗狗碗倒飼料餵食互動 + 底部毛孩圖示列） -->
+      <div class="lg:col-span-5">
+        <div class="polka-card-soft border-4 border-cocoa-900 rounded-[2.5rem] p-6 shadow-[0_10px_0_#E5B53B] relative overflow-hidden">
+
+          <!-- 頂部標籤：歐爸店長 -->
+          <div class="flex items-center justify-between mb-3">
+            <span class="inline-flex items-center gap-1.5 bg-cream-300 border-2 border-cocoa-900 px-4 py-1 rounded-full font-black text-sm text-cocoa-900 shadow-sm">
+              🐩 歐爸店長
+            </span>
+            <span id="oppa-status-badge" class="inline-flex items-center gap-1.5 bg-emerald-100 border border-emerald-400 text-emerald-900 px-3 py-1 rounded-full text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              今日店內值班中
+            </span>
+          </div>
+
+          <!-- 互動對話氣泡 -->
+          <div class="bg-cream-100 border-2 border-cocoa-900 rounded-2xl px-4 py-2.5 mb-2 text-center relative shadow-sm">
+            <p id="oppa-speech" class="font-bold text-sm sm:text-base text-cocoa-900">
+              汪！歡迎來到 Oppa's coffee，點左下角狗碗餵我吃飯吧～ 🐾
+            </p>
+            <div class="w-3 h-3 bg-cream-100 border-r-2 border-b-2 border-cocoa-900 rotate-45 absolute -bottom-2 left-1/2 -translate-x-1/2"></div>
+          </div>
+
+          <!-- 中央互動舞台：乖巧坐姿全身黑貴賓 + 左下角狗狗碗 -->
+          <div class="relative h-64 flex items-end justify-center pt-2 pb-1">
+            <!-- 柔和陽光圓圈背景 -->
+            <div class="absolute w-48 h-48 rounded-full bg-cream-200/80 top-4"></div>
+
+            <!-- 左下角：狗狗食碗餵食按鈕 -->
+            <button onclick="feedOppa()" id="dog-bowl-btn" class="btn-jelly absolute left-2 bottom-2 z-20 flex flex-col items-center group focus:outline-none" title="點擊狗狗碗幫歐爸添加飼料！">
+              <div class="relative w-24 h-20 flex items-end justify-center">
+                <svg class="w-full h-full drop-shadow-md" viewBox="0 0 120 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- 飼料顆粒群（預設隱藏，點擊狗碗後出現，被歐爸吃掉後消失） -->
+                  <g id="kibble-pile" class="opacity-0 transition-opacity duration-300">
+                    <ellipse cx="44" cy="48" rx="7" ry="4.5" fill="#8C583A" stroke="#3B281E" stroke-width="2"/>
+                    <ellipse cx="60" cy="46" rx="7.5" ry="4.5" fill="#A06744" stroke="#3B281E" stroke-width="2"/>
+                    <ellipse cx="76" cy="48" rx="7" ry="4.5" fill="#8C583A" stroke="#3B281E" stroke-width="2"/>
+                    <ellipse cx="52" cy="41" rx="7" ry="4.5" fill="#B57852" stroke="#3B281E" stroke-width="2"/>
+                    <ellipse cx="68" cy="41" rx="7" ry="4.5" fill="#9E623E" stroke="#3B281E" stroke-width="2"/>
+                    <ellipse cx="60" cy="36" rx="6.5" ry="4" fill="#C2845C" stroke="#3B281E" stroke-width="2"/>
+                  </g>
+                  <!-- 狗碗上緣碗口 -->
+                  <ellipse cx="60" cy="52" rx="44" ry="11" fill="#F29F67" stroke="#3B281E" stroke-width="3.5"/>
+                  <ellipse cx="60" cy="52" rx="36" ry="7" fill="#D97B43"/>
+                  <!-- 狗碗梯形碗身 -->
+                  <path d="M16 52 L24 80 C26 86 94 86 96 80 L104 52 C92 61 28 61 16 52 Z" fill="#F6B27A" stroke="#3B281E" stroke-width="3.5" stroke-linejoin="round"/>
+                  <!-- 碗身骨頭小圖示 -->
+                  <path d="M51 70 C49 68 46 70 48 72 C46 74 49 76 51 74 L69 74 C71 76 74 74 72 72 C74 70 71 68 69 70 Z" fill="#FFFDF7"/>
+                </svg>
+              </div>
+              <span class="bg-amber-400 border-2 border-cocoa-900 text-cocoa-900 text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-sm group-hover:bg-amber-300">
+                🍖 點擊加飼料
+              </span>
+            </button>
+
+            <!-- 乖巧坐姿全身黑貴賓插畫（1:1 還原提供圖片 2 造型） -->
+            <svg id="hero-poodle-svg" onclick="petOppa()" class="w-48 h-56 cursor-pointer transition-transform duration-300 hover:scale-105 z-10" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- 後方蓬鬆小圓尾巴 -->
+              <g id="oppa-tail" class="origin-[155px_205px] transition-transform duration-200">
+                <circle cx="168" cy="204" r="16" fill="#3B3B3B" stroke="#141414" stroke-width="4.5"/>
+              </g>
+
+              <!-- 全身坐姿蓬鬆捲毛主體（深炭灰毛色 + 粗黑外框） -->
+              <path d="M110 24
+                       C121 24 130 29 135 37
+                       C144 37 152 43 156 51
+                       C167 51 176 59 178 70
+                       C184 78 184 90 177 98
+                       C178 108 171 117 161 118
+                       C154 119 148 115 145 109
+                       C149 119 149 131 144 140
+                       C152 149 154 162 149 173
+                       C161 181 166 196 161 210
+                       C169 214 173 223 168 230
+                       C163 235 152 235 144 231
+                       C139 235 129 236 123 231
+                       C117 235 103 235 97 231
+                       C91 236 81 235 76 230
+                       C68 235 57 235 52 230
+                       C47 223 51 214 59 210
+                       C54 196 59 181 71 173
+                       C66 162 68 149 76 140
+                       C71 131 71 119 75 109
+                       C72 115 66 119 59 118
+                       C49 117 42 108 43 98
+                       C36 90 36 78 42 70
+                       C44 59 53 51 64 51
+                       C68 43 76 37 85 37
+                       C90 29 99 24 110 24 Z"
+                    fill="#3B3B3B" stroke="#141414" stroke-width="4.5" stroke-linejoin="round"/>
+
+              <!-- 臉部與身體捲毛細節線條 -->
+              <path d="M74 66 C71 72 72 79 76 84" stroke="#222222" stroke-width="3" stroke-linecap="round"/>
+              <path d="M146 66 C149 72 148 79 144 84" stroke="#222222" stroke-width="3" stroke-linecap="round"/>
+              <path d="M88 106 C98 112 122 112 132 106" stroke="#222222" stroke-width="3" stroke-linecap="round"/>
+              <!-- 身體捲毛紋路 -->
+              <path d="M78 156 C83 162 82 170 77 175" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+              <path d="M138 150 C143 156 142 164 137 169" stroke="#222222" stroke-width="2.8" stroke-linecap="round"/>
+              <!-- 前腳與後腿坐姿線條 -->
+              <path d="M92 178 V228 M128 178 V228" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+              <path d="M72 184 C65 192 64 204 69 213 M148 184 C155 192 156 204 151 213" stroke="#141414" stroke-width="3.8" stroke-linecap="round"/>
+              <!-- 小腳趾線條 -->
+              <path d="M84 231 V225 M100 231 V225 M120 231 V225 M136 231 V225" stroke="#141414" stroke-width="3" stroke-linecap="round"/>
+
+              <!-- 眼睛、鼻子與微笑嘴巴 -->
+              <circle cx="93" cy="74" r="5.5" fill="#0F0F0F"/>
+              <circle cx="91.5" cy="72.5" r="1.8" fill="#FFFFFF"/>
+              <circle cx="127" cy="74" r="5.5" fill="#0F0F0F"/>
+              <circle cx="125.5" cy="72.5" r="1.8" fill="#FFFFFF"/>
+              <ellipse cx="110" cy="85" rx="8.5" ry="6.2" fill="#0F0F0F"/>
+              <path d="M110 91 V96 M110 96 C105 101 97 100 95 95 M110 96 C115 101 123 100 125 95" stroke="#1E1E1E" stroke-width="3.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- 底部：歡迎所有毛孩朋友（保留可愛小狗圖示，不標註小狗品種名稱） -->
+          <div class="mt-3 pt-3 border-t-2 border-dashed border-cream-300 text-center">
+            <p class="text-xs font-black text-cocoa-700 mb-2">✨ 歡迎所有毛孩朋友一起來玩 ✨</p>
+            <div class="flex items-center justify-center gap-3">
+              <!-- 小狗圖示 1 -->
+              <div class="w-11 h-11 rounded-2xl bg-cream-100 border-2 border-cream-300 flex items-center justify-center shadow-sm hover:-translate-y-1 transition-transform">
+                <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none">
+                  <path d="M18 22 L12 8 L26 16 Z M46 22 L52 8 L38 16 Z" fill="#E69D45" stroke="#3B281E" stroke-width="3" stroke-linejoin="round"/>
+                  <circle cx="32" cy="34" r="18" fill="#F4B860" stroke="#3B281E" stroke-width="3"/>
+                  <ellipse cx="32" cy="39" rx="11" ry="8" fill="#FFFDF7"/>
+                  <circle cx="25" cy="31" r="2.5" fill="#3B281E"/>
+                  <circle cx="39" cy="31" r="2.5" fill="#3B281E"/>
+                  <ellipse cx="32" cy="36" rx="3.5" ry="2.5" fill="#3B281E"/>
+                </svg>
+              </div>
+              <!-- 小狗圖示 2 -->
+              <div class="w-11 h-11 rounded-2xl bg-cream-100 border-2 border-cream-300 flex items-center justify-center shadow-sm hover:-translate-y-1 transition-transform">
+                <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none">
+                  <path d="M16 24 L10 10 L25 18 Z M48 24 L54 10 L39 18 Z" fill="#D98A3C" stroke="#3B281E" stroke-width="3" stroke-linejoin="round"/>
+                  <circle cx="32" cy="35" r="18" fill="#E9A254" stroke="#3B281E" stroke-width="3"/>
+                  <path d="M27 20 L32 32 L37 20" fill="#FFFDF7"/>
+                  <ellipse cx="32" cy="41" rx="10" ry="7" fill="#FFFDF7"/>
+                  <circle cx="25" cy="32" r="2.5" fill="#3B281E"/>
+                  <circle cx="39" cy="32" r="2.5" fill="#3B281E"/>
+                  <ellipse cx="32" cy="38" rx="3.5" ry="2.5" fill="#3B281E"/>
+                </svg>
+              </div>
+              <!-- 小狗圖示 3 -->
+              <div class="w-11 h-11 rounded-2xl bg-cream-100 border-2 border-cream-300 flex items-center justify-center shadow-sm hover:-translate-y-1 transition-transform">
+                <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none">
+                  <circle cx="32" cy="34" r="20" fill="#FFFDF7" stroke="#3B281E" stroke-width="3"/>
+                  <circle cx="25" cy="32" r="2.8" fill="#3B281E"/>
+                  <circle cx="39" cy="32" r="2.8" fill="#3B281E"/>
+                  <ellipse cx="32" cy="38" rx="3.5" ry="2.5" fill="#3B281E"/>
+                  <circle cx="20" cy="37" r="3" fill="#F8B4B4" opacity="0.7"/>
+                  <circle cx="44" cy="37" r="3" fill="#F8B4B4" opacity="0.7"/>
+                </svg>
+              </div>
+              <!-- 小狗圖示 4 -->
+              <div class="w-11 h-11 rounded-2xl bg-cream-100 border-2 border-cream-300 flex items-center justify-center shadow-sm hover:-translate-y-1 transition-transform">
+                <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none">
+                  <ellipse cx="14" cy="36" rx="6" ry="12" fill="#8C583A" stroke="#3B281E" stroke-width="3"/>
+                  <ellipse cx="50" cy="36" rx="6" ry="12" fill="#8C583A" stroke="#3B281E" stroke-width="3"/>
+                  <circle cx="32" cy="34" r="16" fill="#A86E4B" stroke="#3B281E" stroke-width="3"/>
+                  <circle cx="26" cy="32" r="2.5" fill="#3B281E"/>
+                  <circle cx="38" cy="32" r="2.5" fill="#3B281E"/>
+                  <ellipse cx="32" cy="38" rx="3.5" ry="2.5" fill="#3B281E"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 第二區塊：品牌故事與目標客群 -->
+  <section id="story" class="max-w-6xl mx-auto px-4 py-14">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="bg-cream-300 text-cocoa-900 font-black text-xs px-3.5 py-1 rounded-full border border-cocoa-900">BRAND STORY</span>
+      <h2 class="font-black text-3xl sm:text-4xl text-cocoa-900 mt-3">關於 Oppa's coffee 的溫暖日常</h2>
+      <p class="text-cocoa-700 font-bold mt-2">因黑貴賓「歐爸」而誕生的台中西屯陽光咖啡館，讓每一次相聚都充滿溫度與精緻香氣。</p>
+    </div>
+
+    <!-- 品牌故事三大核心卡片：開店理念、食材來源、料理風格與服務特色 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-6 shadow-[0_6px_0_#F2D883]">
+        <div class="w-12 h-12 rounded-2xl bg-cream-200 border-2 border-cocoa-900 flex items-center justify-center text-2xl mb-4">💛</div>
+        <h3 class="font-black text-xl text-cocoa-900 mb-2">開店理念｜人寵共好的療癒角落</h3>
+        <p class="text-sm font-bold text-cocoa-700 leading-relaxed">
+          我們希望毛孩不再只是待在提籠裡等待，而是能真正與主人共享午後陽光。在台中西屯打造一座擁有戶外綠意草地與溫暖波點美學的空間，讓每位客人與毛孩都能自在呼吸。
+        </p>
+      </div>
+
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-6 shadow-[0_6px_0_#F2D883]">
+        <div class="w-12 h-12 rounded-2xl bg-cream-200 border-2 border-cocoa-900 flex items-center justify-center text-2xl mb-4">🌾</div>
+        <h3 class="font-black text-xl text-cocoa-900 mb-2">嚴選食材｜小農契作與精品豆</h3>
+        <p class="text-sm font-bold text-cocoa-700 leading-relaxed">
+          咖啡豆選用自家配方中深焙阿拉比卡豆；甜點與輕食堅持使用台灣小農鮮乳、放牧洗選蛋與日本進口麵粉，減糖清爽無負擔，連毛孩鮮食也採用人食等級新鮮雞胸與南瓜。
+        </p>
+      </div>
+
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-6 shadow-[0_6px_0_#F2D883]">
+        <div class="w-12 h-12 rounded-2xl bg-cream-200 border-2 border-cocoa-900 flex items-center justify-center text-2xl mb-4">🍰</div>
+        <h3 class="font-black text-xl text-cocoa-900 mb-2">料理與服務｜精緻手作與貼心款待</h3>
+        <p class="text-sm font-bold text-cocoa-700 leading-relaxed">
+          主打「可愛卻不甜膩」的韓系精巧甜點與早午餐輕食。店內免費提供寵物飲水碗、撿便袋與專屬鮮食點心，由熱情的黑貴賓店長歐爸親自迎接每一位到訪的朋友。
+        </p>
+      </div>
+    </div>
+
+    <!-- 目標客群：核心消費者與他們重視的價值 -->
+    <div class="polka-card-soft border-2 border-cocoa-900 rounded-[2rem] p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="font-black text-2xl text-cocoa-900">我們歡迎誰？核心客群與重視價值</h3>
+          <p class="text-sm font-bold text-cocoa-700 mt-1">無論是否帶毛孩同行，都能在這裡找到最適合自己的角落</p>
+        </div>
+        <span class="self-start md:self-auto bg-cream-300 border border-cocoa-900 px-3.5 py-1 rounded-full text-xs font-black">全齡友善 · 歡迎毛孩家庭</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-cream-100/90 border border-cream-400 rounded-2xl p-4">
+          <span class="text-2xl">🐶</span>
+          <h4 class="font-black text-base text-cocoa-900 mt-2">毛孩家庭與飼主</h4>
+          <p class="text-xs font-bold text-cocoa-700 mt-1 leading-relaxed">重視安全寬敞的戶外草地、友善無壓力的用餐環境與健康寵物點心。</p>
+        </div>
+        <div class="bg-cream-100/90 border border-cream-400 rounded-2xl p-4">
+          <span class="text-2xl">💻</span>
+          <h4 class="font-black text-base text-cocoa-900 mt-2">西屯上班族與自由工作者</h4>
+          <p class="text-xs font-bold text-cocoa-700 mt-1 leading-relaxed">重視穩定高品質的「歐爸黑咖啡」、明亮採光與舒適不擁擠的桌距。</p>
+        </div>
+        <div class="bg-cream-100/90 border border-cream-400 rounded-2xl p-4">
+          <span class="text-2xl">🎓</span>
+          <h4 class="font-black text-base text-cocoa-900 mt-2">鄰近大學生與閨蜜聚會</h4>
+          <p class="text-xs font-bold text-cocoa-700 mt-1 leading-relaxed">重視高顏值黑貴賓造型甜點、柔和奶油黃波點拍照氛圍與療癒店狗互動。</p>
+        </div>
+        <div class="bg-cream-100/90 border border-cream-400 rounded-2xl p-4">
+          <span class="text-2xl">🧳</span>
+          <h4 class="font-black text-base text-cocoa-900 mt-2">台中輕旅行遊客</h4>
+          <p class="text-xs font-bold text-cocoa-700 mt-1 leading-relaxed">重視具在地溫度與記憶點的特色咖啡廳，享受慢步調的西屯午後。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第三區塊：主打商品（精選五道代表性餐點與飲品） -->
+  <section id="menu" class="max-w-6xl mx-auto px-4 py-14">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="bg-cream-300 text-cocoa-900 font-black text-xs px-3.5 py-1 rounded-full border border-cocoa-900">SIGNATURE MENU</span>
+      <h2 class="font-black text-3xl sm:text-4xl text-cocoa-900 mt-3">歐爸店長精選 · 五大主打美味</h2>
+      <p class="text-cocoa-700 font-bold mt-2">從招牌「歐爸黑咖啡」到可愛造型甜點與毛孩專屬點心，每一道都是人氣必點。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 1. 歐爸黑咖啡（核心主打飲品） -->
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-5 shadow-[0_6px_0_#E5B53B] flex flex-col justify-between relative">
+        <span class="absolute -top-3 right-5 bg-cocoa-900 text-cream-50 text-xs font-black px-3 py-1 rounded-full">👑 店長同名招牌</span>
+        <div>
+          <div class="h-36 rounded-2xl bg-cream-200 border border-cream-400 flex items-center justify-center mb-4">
+            <!-- 手繪歐爸黑咖啡插畫 -->
+            <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+              <path d="M25 38 H68 V64 C68 76 58 84 46.5 84 C35 84 25 76 25 64 Z" fill="#FFFDF7" stroke="#3B281E" stroke-width="3.5"/>
+              <path d="M68 44 H76 C81 44 84 48 84 53 C84 58 81 62 76 62 H68" stroke="#3B281E" stroke-width="3.5" stroke-linecap="round"/>
+              <ellipse cx="46.5" cy="38" rx="21.5" ry="6" fill="#4A2E1B" stroke="#3B281E" stroke-width="3"/>
+              <path d="M38 24 C36 19 40 15 38 10 M47 22 C45 17 49 13 47 8 M56 24 C54 19 58 15 56 10" stroke="#C5AC96" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-black text-xl text-cocoa-900">歐爸黑咖啡</h3>
+            <span class="font-display font-bold text-lg text-cocoa-700">NT$ 130</span>
+          </div>
+          <p class="text-xs font-bold text-amber-700 mt-0.5">精品黑咖啡 · 冰 / 熱</p>
+          <p class="text-sm font-bold text-cocoa-700 mt-2.5 leading-relaxed">
+            嚴選中深焙配方豆萃取，帶有黑巧克力與烤榛果的溫潤香氣，尾韻乾淨回甘、不酸不澀，與甜點是絕配。
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. 黑貴賓歐爸生巧克力慕斯 -->
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-5 shadow-[0_6px_0_#E5B53B] flex flex-col justify-between relative">
+        <span class="absolute -top-3 right-5 bg-amber-400 text-cocoa-900 border border-cocoa-900 text-xs font-black px-3 py-1 rounded-full">🐩 造型人氣王</span>
+        <div>
+          <div class="h-36 rounded-2xl bg-cream-200 border border-cream-400 flex items-center justify-center mb-4">
+            <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+              <ellipse cx="50" cy="76" rx="34" ry="8" fill="#FFFDF7" stroke="#3B281E" stroke-width="3"/>
+              <path d="M50 26 C57 26 62 30 65 35 C72 35 78 40 79 47 C83 52 83 59 79 64 C78 70 72 74 65 73 C60 76 40 76 35 73 C28 74 22 70 21 64 C17 59 17 52 21 47 C22 40 28 35 35 35 C38 30 43 26 50 26 Z" fill="#3B3B3B" stroke="#141414" stroke-width="3"/>
+              <circle cx="40" cy="50" r="3" fill="#FFFDF7"/>
+              <circle cx="60" cy="50" r="3" fill="#FFFDF7"/>
+              <ellipse cx="50" cy="57" rx="4.5" ry="3.2" fill="#141414"/>
+            </svg>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-black text-xl text-cocoa-900">黑貴賓歐爸生巧慕斯</h3>
+            <span class="font-display font-bold text-lg text-cocoa-700">NT$ 185</span>
+          </div>
+          <p class="text-xs font-bold text-amber-700 mt-0.5">手作精緻甜點</p>
+          <p class="text-sm font-bold text-cocoa-700 mt-2.5 leading-relaxed">
+            以店長歐爸為靈感手工塑形！70% 比利時苦甜生巧克力慕斯包裹香草布蕾內餡，綿密濃郁、可愛到捨不得切開。
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. 奶油黃波點草莓戚風小蛋糕 -->
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-5 shadow-[0_6px_0_#E5B53B] flex flex-col justify-between">
+        <div>
+          <div class="h-36 rounded-2xl bg-cream-200 border border-cream-400 flex items-center justify-center mb-4">
+            <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+              <rect x="24" y="42" width="52" height="34" rx="10" fill="#F8D568" stroke="#3B281E" stroke-width="3.5"/>
+              <path d="M24 46 C24 38 76 38 76 46 C70 52 64 46 58 50 C52 54 46 46 40 50 C34 54 28 48 24 46 Z" fill="#FFFDF7" stroke="#3B281E" stroke-width="3"/>
+              <circle cx="50" cy="30" r="7" fill="#F26B6B" stroke="#3B281E" stroke-width="3"/>
+              <circle cx="36" cy="64" r="2.5" fill="#FFFDF7"/>
+              <circle cx="50" cy="68" r="2.5" fill="#FFFDF7"/>
+              <circle cx="64" cy="64" r="2.5" fill="#FFFDF7"/>
+            </svg>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-black text-xl text-cocoa-900">奶油波點草莓小戚風</h3>
+            <span class="font-display font-bold text-lg text-cocoa-700">NT$ 165</span>
+          </div>
+          <p class="text-xs font-bold text-amber-700 mt-0.5">手作精緻甜點</p>
+          <p class="text-sm font-bold text-cocoa-700 mt-2.5 leading-relaxed">
+            呼應店內柔和黃色波點主題，蓬鬆蛋香戚風淋上輕盈北海道十勝鮮奶油與新鮮草莓，甜度減半、清爽療癒。
+          </p>
+        </div>
+      </div>
+
+      <!-- 4. 蜂蜜桂花燕麥拿鐵 -->
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-5 shadow-[0_6px_0_#E5B53B] flex flex-col justify-between">
+        <div>
+          <div class="h-36 rounded-2xl bg-cream-200 border border-cream-400 flex items-center justify-center mb-4">
+            <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+              <rect x="30" y="24" width="40" height="58" rx="10" fill="#FFFDF7" stroke="#3B281E" stroke-width="3.5"/>
+              <rect x="33" y="42" width="34" height="37" rx="7" fill="#E6C38E"/>
+              <circle cx="44" cy="34" r="3" fill="#F2CC60"/>
+              <circle cx="55" cy="36" r="2.5" fill="#F2CC60"/>
+              <path d="M56 14 L48 34" stroke="#3B281E" stroke-width="3.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-black text-xl text-cocoa-900">蜂蜜桂花燕麥拿鐵</h3>
+            <span class="font-display font-bold text-lg text-cocoa-700">NT$ 155</span>
+          </div>
+          <p class="text-xs font-bold text-amber-700 mt-0.5">特調飲品 · 乳糖友善</p>
+          <p class="text-sm font-bold text-cocoa-700 mt-2.5 leading-relaxed">
+            絲滑燕麥奶融合濃縮咖啡與台灣龍眼蜜，頂層撒上金黃乾燥桂花，入口花香與穀物甜感交織，溫柔暖心。
+          </p>
+        </div>
+      </div>
+
+      <!-- 5. 松露嫩蛋法式可頌拼盤 & 毛孩雞肉南瓜小蛋糕 -->
+      <div class="bg-cream-50 border-2 border-cocoa-900 rounded-3xl p-5 shadow-[0_6px_0_#E5B53B] flex flex-col justify-between md:col-span-2 lg:col-span-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-center h-full">
+          <div>
+            <span class="inline-block bg-cream-200 border border-cocoa-900 text-xs font-black px-2.5 py-0.5 rounded-full mb-2">🥐 精緻輕食 + 🐾 毛孩鮮食</span>
+            <h3 class="font-black text-xl text-cocoa-900">松露嫩蛋可頌拼盤 ＆ 毛孩南瓜雞肉杯</h3>
+            <p class="font-display font-bold text-base text-cocoa-700 mt-0.5">輕食 NT$ 240 ｜ 毛孩點心 NT$ 95</p>
+            <p class="text-sm font-bold text-cocoa-700 mt-2 leading-relaxed">
+              <strong class="text-cocoa-900">給主人的早午餐：</strong>酥脆法國奶油可頌夾入黑松露炒嫩蛋與小農生菜沙拉。<br>
+              <strong class="text-cocoa-900">給毛孩的專屬點心：</strong>無鹽無油低溫蒸烤台灣南瓜泥與舒肥雞胸肉小蛋糕，讓毛孩也能一起開動！
+            </p>
+          </div>
+          <div class="h-36 rounded-2xl bg-cream-200 border border-cream-400 flex items-center justify-center">
+            <svg class="w-32 h-24" viewBox="0 0 140 90" fill="none">
+              <ellipse cx="70" cy="66" rx="56" ry="12" fill="#FFFDF7" stroke="#3B281E" stroke-width="3"/>
+              <!-- 可頌 -->
+              <path d="M26 56 C26 42 42 36 52 36 C62 36 76 42 76 56 C62 60 40 60 26 56 Z" fill="#E8A44C" stroke="#3B281E" stroke-width="3"/>
+              <!-- 毛孩小蛋糕 -->
+              <rect x="84" y="42" width="28" height="20" rx="6" fill="#F5C34B" stroke="#3B281E" stroke-width="3"/>
+              <circle cx="98" cy="36" r="5" fill="#F28B82" stroke="#3B281E" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第四區塊：空間特色（溫暖、精緻、毛孩戶外草地區） -->
+  <section id="space" class="max-w-6xl mx-auto px-4 py-14">
+    <div class="polka-card-soft border-4 border-cocoa-900 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_10px_0_#E5B53B]">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="bg-cream-400 text-cocoa-900 font-black text-xs px-3 py-1 rounded-full border border-cocoa-900">SPACE & GARDEN</span>
+            <span class="text-xs font-black text-cocoa-500">視覺關鍵字：#溫暖 #精緻</span>
+          </div>
+          <h2 class="font-black text-3xl sm:text-4xl text-cocoa-900 mt-3">空間特色與毛孩專屬戶外草地</h2>
+        </div>
+        <p class="text-sm font-bold text-cocoa-700 max-w-md">
+          在台中西屯繁華街區裡藏著一座陽光小花園，讓精緻室內美學與自然綠意無縫銜接。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 1. 毛孩戶外草地區（最大亮點） -->
+        <div class="bg-emerald-50/90 border-2 border-cocoa-900 rounded-3xl p-6 flex gap-4 items-start">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-emerald-200 border-2 border-cocoa-900 flex items-center justify-center text-3xl">🌿</div>
+          <div>
+            <span class="inline-block bg-emerald-200 text-emerald-950 text-[11px] font-black px-2.5 py-0.5 rounded-full mb-1">招牌亮點設施</span>
+            <h3 class="font-black text-xl text-cocoa-900">毛孩戶外陽光草地區</h3>
+            <p class="text-sm font-bold text-cocoa-700 mt-1.5 leading-relaxed">
+              鋪設柔軟好清潔的寵物專用人工草皮，四周設有安全防護圍籬與遮陽傘座位，附設毛孩洗腳台與飲水站，讓狗狗能安心交朋友、自由奔跑放電。
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. 裝潢採光 -->
+        <div class="bg-cream-100 border-2 border-cocoa-900 rounded-3xl p-6 flex gap-4 items-start">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-cream-300 border-2 border-cocoa-900 flex items-center justify-center text-3xl">☀️</div>
+          <div>
+            <span class="inline-block bg-cream-300 text-cocoa-900 text-[11px] font-black px-2.5 py-0.5 rounded-full mb-1">溫暖精緻美學</span>
+            <h3 class="font-black text-xl text-cocoa-900">大面落地窗與奶油黃光影</h3>
+            <p class="text-sm font-bold text-cocoa-700 mt-1.5 leading-relaxed">
+              整面南向落地玻璃引入柔和自然光，搭配奶油黃圓弧牆面、溫潤原木桌椅與黃銅燈飾，白天明亮通透、傍晚溫暖靜謐，隨手一拍都充滿精緻質感。
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. 座位配置 -->
+        <div class="bg-cream-100 border-2 border-cocoa-900 rounded-3xl p-6 flex gap-4 items-start">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-cream-300 border-2 border-cocoa-900 flex items-center justify-center text-3xl">🪑</div>
+          <div>
+            <span class="inline-block bg-cream-300 text-cocoa-900 text-[11px] font-black px-2.5 py-0.5 rounded-full mb-1">寬敞無壓動線</span>
+            <h3 class="font-black text-xl text-cocoa-900">分區寬敞座位與推車友善通道</h3>
+            <p class="text-sm font-bold text-cocoa-700 mt-1.5 leading-relaxed">
+              規劃「草地景觀窗邊席」、「四人沙發家庭區」與「附插座單人吧台區」，桌距寬敞方便停放寵物推車與嬰兒車，互不干擾。
+            </p>
+          </div>
+        </div>
+
+        <!-- 4. 特殊貼心設備 -->
+        <div class="bg-cream-100 border-2 border-cocoa-900 rounded-3xl p-6 flex gap-4 items-start">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-cream-300 border-2 border-cocoa-900 flex items-center justify-center text-3xl">🧴</div>
+          <div>
+            <span class="inline-block bg-cream-300 text-cocoa-900 text-[11px] font-black px-2.5 py-0.5 rounded-full mb-1">全方位毛孩備品</span>
+            <h3 class="font-black text-xl text-cocoa-900">寵物專屬備品與空氣清淨循環</h3>
+            <p class="text-sm font-bold text-cocoa-700 mt-1.5 leading-relaxed">
+              全室配備醫療級空氣清淨機與防滑地板，免費提供不鏽鋼飲水碗、寵物專用餐椅墊、禮貌帶與除臭清潔噴霧，帶毛孩出門也能優雅輕鬆。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第五區塊：寵物友善公約 -->
+  <section id="pet-rules" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="bg-cream-50 border-2 border-cocoa-900 rounded-[2rem] p-6 sm:p-8 shadow-[0_6px_0_#F2D883]">
+      <div class="text-center mb-6">
+        <h2 class="font-black text-2xl sm:text-3xl text-cocoa-900">🐾 毛孩入店溫馨小公約</h2>
+        <p class="text-sm font-bold text-cocoa-700 mt-1">一起守護溫暖、乾淨又安全的相聚環境</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+        <div class="bg-cream-100 rounded-2xl p-4 border border-cream-300">
+          <div class="text-3xl mb-2">🦮</div>
+          <h3 class="font-black text-base text-cocoa-900">室內請繫牽繩或推車</h3>
+          <p class="text-xs font-bold text-cocoa-700 mt-1">進入室內用餐區請繫好牽繩，戶外圍籬草地區可依現場狀況安心放風。</p>
+        </div>
+        <div class="bg-cream-100 rounded-2xl p-4 border border-cream-300">
+          <div class="text-3xl mb-2">🛋️</div>
+          <h3 class="font-black text-base text-cocoa-900">上椅請鋪專屬坐墊</h3>
+          <p class="text-xs font-bold text-cocoa-700 mt-1">歡迎毛孩一起坐沙發，請先向櫃檯索取免費清潔坐墊鋪上即可。</p>
+        </div>
+        <div class="bg-cream-100 rounded-2xl p-4 border border-cream-300">
+          <div class="text-3xl mb-2">🥣</div>
+          <h3 class="font-black text-base text-cocoa-900">人寵餐具分開使用</h3>
+          <p class="text-xs font-bold text-cocoa-700 mt-1">店內備有毛孩專屬水碗與鮮食餐盤，請勿讓毛孩舔食人類餐具喔。</p>
+        </div>
+        <div class="bg-cream-100 rounded-2xl p-4 border border-cream-300">
+          <div class="text-3xl mb-2">💩</div>
+          <h3 class="font-black text-base text-cocoa-900">隨手清潔禮貌加分</h3>
+          <p class="text-xs font-bold text-cocoa-700 mt-1">草地與室內皆備有撿便袋與清潔噴霧，若不小心便溺請隨時告知夥伴。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第六區塊：店鋪資訊與線上預約 -->
+  <footer id="visit" class="max-w-6xl mx-auto px-4 pt-6 pb-16">
+    <div class="bg-cocoa-900 text-cream-50 rounded-[2.5rem] p-6 sm:p-10 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 space-y-4">
+        <span class="inline-block bg-cream-400 text-cocoa-900 font-black text-xs px-3 py-1 rounded-full">VISIT US · 台中西屯</span>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-cream-100">Oppa's coffee 歐爸咖啡</h2>
+        <p class="text-cream-200 font-bold text-sm sm:text-base">
+          帶上你的好心情與毛孩，來台中西屯找黑貴賓歐爸喝杯咖啡吧！
+        </p>
+        <div class="space-y-2 text-sm font-bold text-cream-100 pt-2">
+          <p>📍 地址：台中市西屯區朝富路與市政北二路口（附設毛孩戶外草地區）</p>
+          <p>🕒 營業時間：週二至週日 10:00 – 19:00（每週一公休，歐爸美容日）</p>
+          <p>📞 訂位專線：04-2258-8866（假日建議提前預約草地窗邊席）</p>
+        </div>
+      </div>
+
+      <!-- 簡易互動預約卡片（不使用 alert） -->
+      <div class="lg:col-span-5 bg-cream-50 text-cocoa-900 rounded-3xl p-6 border-4 border-cream-400">
+        <h3 class="font-black text-xl mb-3">📅 快速預約席位</h3>
+        <form onsubmit="handleBooking(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-black mb-1">您的稱呼</label>
+            <input type="text" id="guest-name" required placeholder="例如：林小姐" class="w-full px-3.5 py-2 rounded-xl bg-cream-100 border-2 border-cream-300 font-bold text-sm focus:outline-none focus:border-cocoa-900">
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-xs font-black mb-1">大人人數</label>
+              <select id="guest-count" class="w-full px-3 py-2 rounded-xl bg-cream-100 border-2 border-cream-300 font-bold text-sm focus:outline-none focus:border-cocoa-900">
+                <option>1 位</option>
+                <option selected>2 位</option>
+                <option>3 位</option>
+                <option>4 位以上</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-black mb-1">同行毛孩</label>
+              <select id="pet-count" class="w-full px-3 py-2 rounded-xl bg-cream-100 border-2 border-cream-300 font-bold text-sm focus:outline-none focus:border-cocoa-900">
+                <option>無同行毛孩</option>
+                <option selected>1 隻毛孩 🐾</option>
+                <option>2 隻毛孩 🐾</option>
+                <option>3 隻以上</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-cream-400 hover:bg-cream-500 border-2 border-cocoa-900 font-black text-sm shadow-[0_3px_0_#3B281E] transition-all">
+            送出預約申請 ✨
+          </button>
+        </form>
+        <div id="booking-feedback" class="hidden mt-3 p-3 rounded-xl bg-emerald-100 border border-emerald-400 text-emerald-950 text-xs font-bold text-center"></div>
+      </div>
+    </div>
+    <p class="text-center text-xs font-bold text-cocoa-500 mt-6">© 2026 Oppa's coffee 台中西屯寵物友善咖啡廳. All Rights Reserved.</p>
+  </footer>
+
+  <!-- 互動腳本 -->
+  <script>
+    let isFeeding = false;
+
+    const petQuotes = [
+      "汪嗚～好舒服！今天也一起喝杯歐爸黑咖啡吧 🤎",
+      "尾巴搖搖！待會要不要帶毛孩去戶外草地跑跑呀？🌿",
+      "嘿嘿，再多摸我兩下，我就推薦你吃黑貴賓生巧慕斯！🍰",
+      "汪！謝謝你的摸摸，歐爸店長最喜歡你了～ ✨"
+    ];
+
+    // 摸摸歐爸互動
+    function petOppa() {
+      const speechEl = document.getElementById('oppa-speech');
+      const tailEl = document.getElementById('oppa-tail');
+      const poodleEl = document.getElementById('hero-poodle-svg');
+
+      const randomQuote = petQuotes[Math.floor(Math.random() * petQuotes.length)];
+      speechEl.textContent = randomQuote;
+
+      if (tailEl) {
+        tailEl.classList.remove('wag-tail');
+        void tailEl.offsetWidth;
+        tailEl.classList.add('wag-tail');
+      }
+
+      if (poodleEl) {
+        poodleEl.style.transform = 'scale(1.08) translateY(-4px)';
+        setTimeout(() => {
+          poodleEl.style.transform = '';
+        }, 280);
+      }
+    }
+
+    // 點擊狗狗碗添加飼料 + 歐爸把飼料吃掉的完整互動
+    function feedOppa() {
+      if (isFeeding) return;
+      isFeeding = true;
+
+      const kibblePile = document.getElementById('kibble-pile');
+      const speechEl = document.getElementById('oppa-speech');
+      const poodleEl = document.getElementById('hero-poodle-svg');
+      const tailEl = document.getElementById('oppa-tail');
+
+      // 步驟 1：倒出飼料顆粒到狗碗裡
+      speechEl.textContent = "哇！香噴噴的飼料倒進碗裡了，謝謝你！🍖✨";
+      kibblePile.classList.remove('opacity-0');
+      kibblePile.classList.add('opacity-100', 'kibble-drop');
+
+      // 步驟 2：0.9 秒後歐爸開心湊近開動咀嚼
+      setTimeout(() => {
+        speechEl.textContent = "啊姆啊姆～好好吃喔！（歐爸正在大口吃飼料...）😋";
+        poodleEl.classList.add('animate-nom');
+        if (tailEl) tailEl.classList.add('wag-tail');
+      }, 900);
+
+      // 步驟 3：2.3 秒後把飼料全部吃光光
+      setTimeout(() => {
+        kibblePile.classList.remove('opacity-100', 'kibble-drop');
+        kibblePile.classList.add('opacity-0');
+        poodleEl.classList.remove('animate-nom');
+        if (tailEl) tailEl.classList.remove('wag-tail');
+        speechEl.textContent = "吃光光了！肚子好滿足，汪汪謝謝招待～ 🤎🐾";
+        isFeeding = false;
+      }, 2400);
+    }
+
+    // 手機版選單切換
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // 預約表單回饋（不使用 alert）
+    function handleBooking(e) {
+      e.preventDefault();
+      const name = document.getElementById('guest-name').value.trim();
+      const count = document.getElementById('guest-count').value;
+      const pets = document.getElementById('pet-count').value;
+      const feedback = document.getElementById('booking-feedback');
+
+      feedback.textContent = `汪！已收到 ${name}（${count}、${pets}）的預約申請，歐爸店長期待在台中西屯見到你們！`;
+      feedback.classList.remove('hidden');
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
